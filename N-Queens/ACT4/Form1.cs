@@ -206,7 +206,6 @@ namespace ACT4
 
             chosenMove = null;
             updateUI();
-
             temperature *= alpha;
         }
 
