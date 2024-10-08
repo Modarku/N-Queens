@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,16 +14,13 @@ namespace ACT4
     public partial class Form1 : Form
     {
         int side;
-        int n = 4;
-        FourState startState;
-        FourState currentState;
+        int n = 6;
+        SixState startState;
+        SixState currentState;
         int moveCounter;
-
+        double alpha = 0.99;
+        double temperature = 400.0;
         //bool stepMove = true;
-
-        // Simulated Annealing parameters
-        double temperature = 1000.0;
-        double coolingRate = 0.99;
 
         int[,] hTable;
         ArrayList bMoves;
@@ -35,8 +32,8 @@ namespace ACT4
 
             side = pictureBox1.Width / n;
 
-            startState = randomFourState();
-            currentState = new FourState(startState);
+            startState = randomSixState();
+            currentState = new SixState(startState);
 
             updateUI();
             label1.Text = "Attacking pairs: " + getAttackingPairs(startState);
@@ -100,10 +97,12 @@ namespace ACT4
             }
         }
 
-        private FourState randomFourState()
+        private SixState randomSixState()
         {
             Random r = new Random();
-            FourState random = new FourState(r.Next(n),
+            SixState random = new SixState(r.Next(n),
+                                             r.Next(n),
+                                             r.Next(n),
                                              r.Next(n),
                                              r.Next(n),
                                              r.Next(n));
@@ -111,7 +110,7 @@ namespace ACT4
             return random;
         }
 
-        private int getAttackingPairs(FourState f)
+        private int getAttackingPairs(SixState f)
         {
             int attackers = 0;
             
@@ -140,7 +139,7 @@ namespace ACT4
             return attackers;
         }
 
-        private int[,] getHeuristicTableForPossibleMoves(FourState thisState)
+        private int[,] getHeuristicTableForPossibleMoves(SixState thisState)
         {
             int[,] hStates = new int[n, n];
 
@@ -148,7 +147,7 @@ namespace ACT4
             {
                 for (int j = 0; j < n; j++) // replace them with a new value
                 {
-                    FourState possible = new FourState(thisState);
+                    SixState possible = new SixState(thisState);
                     possible.Y[i] = j;
                     hStates[i, j] = getAttackingPairs(possible);
                 }
@@ -194,20 +193,12 @@ namespace ACT4
 
         private void executeMove(Point move)
         {
-/*            for (int i = 0; i < n; i++)
-            {
-                startState.Y[i] = currentState.Y[i];
-            }
-            currentState.Y[move.X] = move.Y;
-            moveCounter++;*/
-
             int currentAttackingPairs = getAttackingPairs(currentState);
-            FourState newState = new FourState(currentState);
+            SixState newState = new SixState(currentState);
             newState.Y[move.X] = move.Y;
             int newAttackingPairs = getAttackingPairs(newState);
 
-            if (newAttackingPairs < currentAttackingPairs ||
-                Math.Exp((currentAttackingPairs - newAttackingPairs) / temperature) > new Random().NextDouble())
+            if (newAttackingPairs < currentAttackingPairs || Math.Exp((currentAttackingPairs - newAttackingPairs) / temperature) > new Random().NextDouble())
             {
                 currentState.Y[move.X] = move.Y;
                 moveCounter++;
@@ -216,7 +207,7 @@ namespace ACT4
             chosenMove = null;
             updateUI();
 
-            temperature *= coolingRate; // Cool down
+            temperature *= alpha;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -232,11 +223,11 @@ namespace ACT4
 
         private void button3_Click(object sender, EventArgs e)
         {
-            startState = randomFourState();
-            currentState = new FourState(startState);
+            startState = randomSixState();
+            currentState = new SixState(startState);
 
             moveCounter = 0;
-            temperature = 1000.0; // Reset temperature
+            temperature = 400.0; // Reset temperature
 
             updateUI();
             pictureBox1.Refresh();
