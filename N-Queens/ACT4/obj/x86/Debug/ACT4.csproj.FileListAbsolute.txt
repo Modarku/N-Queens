@@ -1,0 +1,10 @@
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\bin\Debug\ACT4.exe.config
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\bin\Debug\ACT4.exe
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\bin\Debug\ACT4.pdb
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\obj\x86\Debug\ACT4.csproj.AssemblyReference.cache
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\obj\x86\Debug\ACT4.Form1.resources
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\obj\x86\Debug\ACT4.Properties.Resources.resources
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\obj\x86\Debug\ACT4.csproj.GenerateResource.cache
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\obj\x86\Debug\ACT4.csproj.CoreCompileInputs.cache
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\obj\x86\Debug\ACT4.exe
+C:\Users\jianl\Source\Repos\ACT4---N-Queens\ACT4\obj\x86\Debug\ACT4.pdb
